@@ -119,7 +119,7 @@ void readFile(node *hashTable[])
 {
     ifstream f;
     f.open("INPUT.txt", ios::in);
-    if (!f.eof())
+    while (!f.eof())
     {
         Word data;
         getline(f, data.word);
@@ -133,12 +133,13 @@ void readFile(node *hashTable[])
 // begin duyet
 void khung()
 {
-    cout << left << setw(30) << "Word" << setw(10) << "Type" << setw(30) << "Mean" << endl;
+    cout << left << setw(25) << "Word" << setw(10) << "Type" << setw(30) << "Mean" << endl;
+    cout << "-----------------------------------------------------------" << endl;
 }
 
 void duyetNode(node *p)
 {
-    cout << p->data.word << " (" << p->data.type << ") :" << p->data.mean << endl;
+    cout << left << setw(25) << p->data.word << setw(10) << p->data.type << setw(30) << p->data.mean << endl;
 }
 
 void duyetHT(node *hashTable[])
@@ -209,6 +210,7 @@ int main()
 {
     init(hashTable);
     readFile(hashTable);
+    khung();
     duyetHT(hashTable);
     _getch();
     return 1;
