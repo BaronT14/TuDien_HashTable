@@ -108,6 +108,11 @@ void deleteWord(node *hashTable[], string data)
     int h = hashstr(data);
     node *r = hashTable[h];
     node *prev = NULL;
+    if (r == NULL)
+    {
+        cout << "Khong co tu trong tu dien";
+        _getch();
+    }
     while (r != NULL)
     {
         if (r->data.word.compare(data) == 0)
@@ -122,6 +127,8 @@ void deleteWord(node *hashTable[], string data)
             }
             r->next = NULL;
             delete r;
+            cout << "Da xoa!!!";
+            _getch();
             break;
         }
         prev = r;
@@ -185,11 +192,15 @@ void updateWord(node *hashTable[], Word data)
             if (t == h)
             {
                 r->data = data;
-                break;
+                cout << "Da cap nhat thanh cong";
+                _getch();
+                return;
             }
             r = r->next;
         } while (r->next != NULL);
     }
+    cout << "Cap nhat khong thanh cong";
+    _getch();
 }
 node *findWord(string word)
 {
@@ -220,28 +231,91 @@ node *findMean(string mean)
     return NULL;
 }
 
-void menu()
+void menu(int &luachon)
 {
-    cout << "+---------------MENU---------------+" << endl;
-    cout << "| 1   .Tim kiem tu tieng Anh       |" << endl;
-    cout << "| 2   .Tim kiem tu tieng Viet      |" << endl;
+    cout << "\n+---------------MENU---------------+" << endl;
+    cout << "| 1   .Tra cuu tu Tieng Anh        |" << endl;
+    cout << "| 2   .Tra cuu tu Tieng Viet       |" << endl;
     cout << "| 3   .Hien thi toan bo Tu Dien    |" << endl;
     cout << "| 4   .Them tu vao Tu Dien         |" << endl;
     cout << "| 5   .Xoa tu khoi Tu Dien         |" << endl;
-    cout << "| 6   .Cap nhat 1 tu trong tu dien |" << endl;
+    cout << "| 6   .Cap nhat 1 tu trong Tu Dien |" << endl;
     cout << "| 0   .Thoat                       |" << endl;
     cout << "+----------------------------------+" << endl;
+    cout << "Nhap lua chon: ";
+    cin >> luachon;
+}
+
+void thucHienMenu(int luachon)
+{
+    switch (luachon)
+    {
+    case 1:
+    {
+        string data;
+        cin.ignore();
+        cout << "Nhap tu Tieng Anh muon tra cuu: ";
+        getline(cin, data);
+        node *p = findWord(data);
+        khung();
+        duyetNode(p);
+        _getch();
+    }
+    break;
+    case 2:
+    {
+        string data;
+        cin.ignore();
+        cout << "Nhap tu Tieng Viet muon tra cuu: ";
+        getline(cin, data);
+        node *p = findMean(data);
+        khung();
+        duyetNode(p);
+        _getch();
+    }
+    break;
+    case 3:
+    {
+        khung();
+        duyetHT(hashTable);
+        _getch();
+    }
+    break;
+    case 4:
+    {
+        inputHT(hashTable);
+    }
+    break;
+    case 5:
+    {
+        string data;
+        cin.ignore();
+        cout << "Nhap tu Tieng Anh muon xoa: ";
+        getline(cin, data);
+        deleteWord(hashTable, data);
+    }
+    break;
+    case 6:
+    {
+        Word data;
+        InputWord(data);
+        updateWord(hashTable, data);
+    }
+    break;
+    default:
+        break;
+    }
 }
 
 int main()
 {
-    int c;
+    init(hashTable);
+    int c, luachon;
     cout << "1   . Nhap du lieu tu file" << endl;
     cout << "2   . Nhap du lieu tu ban phim" << endl;
     cout << "-----------------------------------" << endl;
     cout << "Nhap lua chon: ";
     cin >> c;
-    init(hashTable);
     switch (c)
     {
     case 1:
@@ -257,9 +331,11 @@ int main()
     default:
         break;
     }
-    deleteWord(hashTable, "Computer");
-    khung();
-    duyetHT(hashTable);
+    do
+    {
+        menu(luachon);
+        thucHienMenu(luachon);
+    } while (luachon != 0);
     _getch();
     return 1;
 }
