@@ -47,6 +47,7 @@ int hash_func(Word data)
 
 void InputWord(Word &data)
 {
+    cin.ignore();
     cout << "Nhap tu: ";
     getline(cin, data.word);
     cout << "Nhap loai tu: ";
@@ -86,6 +87,19 @@ void insert(node *hashTable[], Word data)
             r = r->next;
         }
         hashTable[index]->next = tmp; // add node tail list
+    }
+}
+
+void inputHT(node *hashTable[])
+{
+    int n;
+    cout << "Nhap so luong tu muon them: ";
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        Word data;
+        InputWord(data);
+        insert(hashTable, data);
     }
 }
 
@@ -193,23 +207,43 @@ node *findWord(string word)
 }
 node *findMean(string mean)
 {
-    int index = hashstr(mean);
-    node *curr = hashTable[index];
-    while (curr != NULL)
+    for (int i = 0; i < Hash_Size; i++)
     {
-        if (curr->data.mean.compare(mean) == 0)
+        node *curr = hashTable[i];
+        while (curr != NULL)
         {
-            return curr;
+            if (curr->data.mean.compare(mean) == 0)
+                return curr;
+            curr = curr->next;
         }
-        curr = curr->next;
     }
     return NULL;
 }
 
 int main()
 {
+    int c;
+    cout << "1   . Nhap du lieu tu file" << endl;
+    cout << "2   . Nhap du lieu tu ban phim" << endl;
+    cout << "-----------------------------------" << endl;
+    cout << "Nhap lua chon: ";
+    cin >> c;
     init(hashTable);
-    readFile(hashTable);
+    switch (c)
+    {
+    case 1:
+    {
+        readFile(hashTable);
+    }
+    break;
+    case 2:
+    {
+        inputHT(hashTable);
+    }
+    break;
+    default:
+        break;
+    }
     khung();
     duyetHT(hashTable);
     _getch();
