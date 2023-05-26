@@ -108,7 +108,7 @@ void deleteWord(node *hashTable[], string data)
     int h = hashstr(data);
     node *r = hashTable[h];
     node *prev = NULL;
-    while (r->next != NULL)
+    while (r != NULL)
     {
         if (r->data.word.compare(data) == 0)
         {
@@ -220,6 +220,19 @@ node *findMean(string mean)
     return NULL;
 }
 
+void menu()
+{
+    cout << "+---------------MENU---------------+" << endl;
+    cout << "| 1   .Tim kiem tu tieng Anh       |" << endl;
+    cout << "| 2   .Tim kiem tu tieng Viet      |" << endl;
+    cout << "| 3   .Hien thi toan bo Tu Dien    |" << endl;
+    cout << "| 4   .Them tu vao Tu Dien         |" << endl;
+    cout << "| 5   .Xoa tu khoi Tu Dien         |" << endl;
+    cout << "| 6   .Cap nhat 1 tu trong tu dien |" << endl;
+    cout << "| 0   .Thoat                       |" << endl;
+    cout << "+----------------------------------+" << endl;
+}
+
 int main()
 {
     int c;
@@ -244,6 +257,7 @@ int main()
     default:
         break;
     }
+    deleteWord(hashTable, "Computer");
     khung();
     duyetHT(hashTable);
     _getch();
