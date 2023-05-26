@@ -1,0 +1,15 @@
+Hello
+V
+Xin chao
+Bye
+V
+Tam biet
+Computer
+N
+May tinh
+Project
+N
+Du an
+Beautiful
+adj
+Xinh dep

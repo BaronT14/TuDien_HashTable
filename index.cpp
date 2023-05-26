@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <iomanip>
 #include <string>
+#include <fstream>
 using namespace std;
 // hash table
 #define Hash_Size 100
@@ -13,11 +14,9 @@ struct Word
     string mean;
 };
 
-typedef Word itemtype;
-
 struct node
 {
-    itemtype data;
+    Word data;
     node *next;
 };
 
@@ -31,17 +30,22 @@ void init(node *hashTable[])
     }
 }
 
-int hash_func(itemtype data)
+int hashstr(string data)
 {
     int h = 0;
-    for (int i = 0; i < data.word.length(); i++)
+    for (int i = 0; i < data.length(); i++)
     {
-        h += (int)tolower(data.word[i]) * (i + 1); // tolower chuyển thành chữ thường
+        h += (int)tolower(data[i]) * (i + 1); // tolower chuyển thành chữ thường
     }
-    return h;
+    return h % Hash_Size;
 }
 
-void InputWord(itemtype &data)
+int hash_func(Word data)
+{
+    return hashstr(data.word);
+}
+
+void InputWord(Word &data)
 {
     cout << "Nhap tu: ";
     getline(cin, data.word);
@@ -51,7 +55,7 @@ void InputWord(itemtype &data)
     getline(cin, data.mean);
 }
 
-node *createNode(itemtype data)
+node *createNode(Word data)
 {
     node *p = new node;
     if (p == NULL)
@@ -65,7 +69,7 @@ node *createNode(itemtype data)
     return p;
 }
 
-void insert(node *hashTable[], itemtype data)
+void insert(node *hashTable[], Word data)
 {
     int index = hash_func(data);
     node *r = hashTable[index];
@@ -84,6 +88,48 @@ void insert(node *hashTable[], itemtype data)
         hashTable[index]->next = tmp; // add node tail list
     }
 }
+
+void deleteWord(node *hashTable[], string data)
+{
+    int h = hashstr(data);
+    node *r = hashTable[h];
+    node *prev = NULL;
+    while (r->next != NULL)
+    {
+        if (r->data.word.compare(data) == 0)
+        {
+            if (prev != NULL)
+            {
+                prev->next = r->next;
+            }
+            else
+            {
+                hashTable[h] = r->next;
+            }
+            r->next = NULL;
+            delete r;
+            break;
+        }
+        prev = r;
+        r = r->next;
+    }
+}
+// doc tap tin
+void readFile(node *hashTable[])
+{
+    ifstream f;
+    f.open("INPUT.txt", ios::in);
+    if (!f.eof())
+    {
+        Word data;
+        getline(f, data.word);
+        getline(f, data.type);
+        getline(f, data.mean);
+        insert(hashTable, data);
+    }
+    f.close();
+}
+
 // begin duyet
 void khung()
 {
@@ -92,7 +138,7 @@ void khung()
 
 void duyetNode(node *p)
 {
-    cout << left << setw(30) << p->data.word << setw(10) << p->data.type << setw(30) << p->data.mean << endl;
+    cout << p->data.word << " (" << p->data.type << ") :" << p->data.mean << endl;
 }
 
 void duyetHT(node *hashTable[])
@@ -111,31 +157,46 @@ void duyetHT(node *hashTable[])
     }
 }
 // end duyet
-void updateWord(node *hashTable[], itemtype data)
+void updateWord(node *hashTable[], Word data)
 {
     int h = hash_func(data);
     node *r = hashTable[h];
     if (r != NULL)
     {
-        while (r != NULL)
+        int t = hash_func(r->data);
+        do
         {
-            int t = hash_func(r->data);
+            t = hash_func(r->data);
             if (t == h)
             {
                 r->data = data;
                 break;
             }
             r = r->next;
-        }
+        } while (r->next != NULL);
     }
 }
-node *find(itemtype data)
+node *findWord(string word)
 {
-    int index = hash_func(data);
+    int index = hashstr(word);
     node *curr = hashTable[index];
-    while (curr)
+    while (curr != NULL)
     {
-        if (curr->data.word.compare(data.word) == 0 || curr->data.mean.compare(data.mean) == 0)
+        if (curr->data.word.compare(word) == 0)
+        {
+            return curr;
+        }
+        curr = curr->next;
+    }
+    return NULL;
+}
+node *findMean(string mean)
+{
+    int index = hashstr(mean);
+    node *curr = hashTable[index];
+    while (curr != NULL)
+    {
+        if (curr->data.mean.compare(mean) == 0)
         {
             return curr;
         }
@@ -146,7 +207,9 @@ node *find(itemtype data)
 
 int main()
 {
-
+    init(hashTable);
+    readFile(hashTable);
+    duyetHT(hashTable);
     _getch();
-    return 21;
+    return 1;
 }
