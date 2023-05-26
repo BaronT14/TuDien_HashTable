@@ -257,9 +257,17 @@ void thucHienMenu(int luachon)
         cout << "Nhap tu Tieng Anh muon tra cuu: ";
         getline(cin, data);
         node *p = findWord(data);
-        khung();
-        duyetNode(p);
-        _getch();
+        if (p != NULL)
+        {
+            khung();
+            duyetNode(p);
+            _getch();
+        }
+        else
+        {
+            cout << "Khong co trong tu dien";
+            _getch();
+        }
     }
     break;
     case 2:
@@ -269,9 +277,17 @@ void thucHienMenu(int luachon)
         cout << "Nhap tu Tieng Viet muon tra cuu: ";
         getline(cin, data);
         node *p = findMean(data);
-        khung();
-        duyetNode(p);
-        _getch();
+        if (p != NULL)
+        {
+            khung();
+            duyetNode(p);
+            _getch();
+        }
+        else
+        {
+            cout << "Khong co trong tu dien";
+            _getch();
+        }
     }
     break;
     case 3:
