@@ -231,15 +231,57 @@ node *findMean(string mean)
     return NULL;
 }
 
+void sortDictionary(node *hashTable[])
+{
+    int MaxWords = 100;   // Giới hạn từ
+    Word words[MaxWords]; // Mảng để lưu từ
+    int numWords = 0;
+    // Thu thập tất cả tù trong bảng băm
+    for (int i = 0; i < Hash_Size; i++)
+    {
+        if (hashTable[i] != NULL)
+        {
+            node *p = hashTable[i];
+            while (p != NULL && numWords < MaxWords)
+            {
+                words[numWords] = p->data;
+                p = p->next;
+                numWords++;
+            }
+        }
+    }
+    // Sắp xếp nổi bọt
+    for (int i = 0; i < numWords - 1; i++)
+    {
+        for (int j = 0; j < numWords - i - 1; j++)
+        {
+            if (words[j].word > words[j + 1].word)
+            {
+                Word temp = words[j];
+                words[j] = words[j + 1];
+                words[j + 1] = temp;
+            }
+        }
+    }
+    khung();
+    for (int i = 0; i < numWords; i++)
+    {
+        node *p = createNode(words[i]);
+        duyetNode(p);
+    }
+    _getch();
+}
+
 void menu(int &luachon)
 {
     cout << "\n+---------------MENU---------------+" << endl;
-    cout << "| 1   .Tra cuu tu Tieng Anh        |" << endl;
-    cout << "| 2   .Tra cuu tu Tieng Viet       |" << endl;
+    cout << "| 1   .Tim tu bang Tieng Anh       |" << endl;
+    cout << "| 2   .Tim tu bang Tieng Viet      |" << endl;
     cout << "| 3   .Hien thi toan bo Tu Dien    |" << endl;
     cout << "| 4   .Them tu vao Tu Dien         |" << endl;
     cout << "| 5   .Xoa tu khoi Tu Dien         |" << endl;
     cout << "| 6   .Cap nhat 1 tu trong Tu Dien |" << endl;
+    cout << "| 7   .Hien thi Tu Dien theo Alpbet|" << endl;
     cout << "| 0   .Thoat                       |" << endl;
     cout << "+----------------------------------+" << endl;
     cout << "Nhap lua chon: ";
@@ -316,6 +358,11 @@ void thucHienMenu(int luachon)
         Word data;
         InputWord(data);
         updateWord(hashTable, data);
+    }
+    break;
+    case 7:
+    {
+        sortDictionary(hashTable);
     }
     break;
     default:
