@@ -202,13 +202,24 @@ void updateWord(node *hashTable[], Word data)
     cout << "Cap nhat khong thanh cong";
     _getch();
 }
+
+string lower(string word){
+    for (int i = 0; i < word.length(); i++)
+    {
+        word[i] = tolower(word[i]);
+    }
+    return word;
+}
+
 node *findWord(string word)
 {
     int index = hashstr(word);
     node *curr = hashTable[index];
+    word = lower(word);
     while (curr != NULL)
     {
-        if (curr->data.word.compare(word) == 0)
+        string w = lower(curr->data.word);
+        if (w.compare(word) == 0)
         {
             return curr;
         }
@@ -218,12 +229,14 @@ node *findWord(string word)
 }
 node *findMean(string mean)
 {
+    mean = lower(mean);
     for (int i = 0; i < Hash_Size; i++)
     {
         node *curr = hashTable[i];
         while (curr != NULL)
         {
-            if (curr->data.mean.compare(mean) == 0)
+            string m = lower(curr->data.mean);
+            if (m.compare(mean) == 0)
                 return curr;
             curr = curr->next;
         }
