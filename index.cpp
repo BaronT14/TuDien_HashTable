@@ -73,20 +73,19 @@ node *createNode(Word data)
 void insert(node *hashTable[], Word data)
 {
     int index = hash_func(data);
-    node *r = hashTable[index];
     node *tmp = createNode(data);
     if (hashTable[index] == NULL)
     {
         hashTable[index] = tmp;
-        return;
     }
     else
     {
-        while (r->next != NULL)
+        node *head = hashTable[index];
+        while (head->next != NULL)
         {
-            r = r->next;
+            head = head->next;
         }
-        hashTable[index]->next = tmp; // add node tail list
+        head->next = tmp; // thêm node vào cuối danh sách
     }
 }
 
@@ -154,13 +153,13 @@ void readFile(node *hashTable[])
 // begin duyet
 void khung()
 {
-    cout << left << setw(25) << "Word" << setw(10) << "Type" << setw(30) << "Mean" << endl;
-    cout << "-----------------------------------------------------------" << endl;
+    cout << left << setw(25) << "Word" << setw(15) << "Type" << setw(30) << "Mean" << endl;
+    cout << "--------------------------------------------------------------------" << endl;
 }
 
 void duyetNode(node *p)
 {
-    cout << left << setw(25) << p->data.word << setw(10) << p->data.type << setw(30) << p->data.mean << endl;
+    cout << left << setw(25) << p->data.word << setw(15) << p->data.type << setw(30) << p->data.mean << endl;
 }
 
 void duyetHT(node *hashTable[])
@@ -172,7 +171,7 @@ void duyetHT(node *hashTable[])
             node *p = hashTable[i];
             while (p != NULL)
             {
-                duyetNode(hashTable[i]);
+                duyetNode(p);
                 p = p->next;
             }
         }
@@ -246,7 +245,7 @@ node *findMean(string mean)
 
 void sortDictionary(node *hashTable[])
 {
-    int MaxWords = 100;   // Giới hạn từ
+    const int MaxWords = 100;   // Giới hạn từ
     Word words[MaxWords]; // Mảng để lưu từ
     int numWords = 0;
     // Thu thập tất cả tù trong bảng băm

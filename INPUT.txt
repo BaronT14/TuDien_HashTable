@@ -1,36 +1,150 @@
-Hello
-V
-Xin chao
-Bye
-V
-Tam biet
-Computer
-N
-May tinh
-Project
-N
-Du an
+House
+Noun
+Nha
+Book
+Noun
+Sach
+Friend
+Noun
+Ban
+Eat
+Verb
+An
+Sleep
+Verb
+Ngu
+Happy
+Adj
+Hanh phuc
+Sad
+Adj
+Buon
+Run
+Verb
+Chay
+Study
+Verb
+Hoc
+Work
+Noun/verb
+Cong viec/lam viec
+Money
+Noun
+Tien
+Family
+Noun
+Gia dinh
+Dog
+Noun
+Cho
+Cat
+Noun
+Meo
+Music
+Noun
+Am nhac
+Movie
+Noun
+Phim
 Beautiful
-adj
-Xinh dep
-Follow
-V
-Theo doi
+Adj
+Dep
+Love
+Noun/verb
+Tinh yeu/yeu
+Game
+Noun
+Tro choi
+Computer
+Noun
+May tinh
+Phone
+Noun
+Dien thoai
+Watch
+Verb/noun
+Xem/xem dong ho
+Car
+Noun
+Xe hoi
+School
+Noun
+Truong hoc
+Teacher
+Noun
+Giao vien
+Student
+Noun
+Hoc sinh
+Coffee
+Noun
+Ca phe
+Tea
+Noun
+Tra
+Water
+Noun
+Nuoc
+Food
+Noun
+Do an
+Time
+Noun
+Thoi gian
+Day
+Noun
+Ngay
+Week
+Noun
+Tuan
+Month
+Noun
+Thang
+Year
+Noun
+Nam
+Read
+Verb
+Doc
+Write
+Verb
+Viet
+Speak
+Verb
+Noi
+Listen
+Verb
+Nghe
+Sing
+Verb
+Hat
+Travel
+Verb
+Di du lich
+Learn
+Verb
+Hoc
+Play
+Verb
+Choi
+Buy
+Verb
+Mua
+Sell
+Verb
+Ban
+Open
+Verb
+Mo
+Close
+Verb
+Dong
+Visit
+Verb
+Tham
+Help
+Verb
+Giup do
 Understand
-V
+Verb
 Hieu
-Improve
-V
-Cai thien
-Attend
-V
-Tham du
-Continue
-V
-Tiep tuc
-Announce
-V
-Thong bao
-Revise
-V
-On tap
